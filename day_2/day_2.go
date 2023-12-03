@@ -30,6 +30,15 @@ import (
 // For each round:
 // 2.1 Determine possibility by limits
 
+// --- Part Two ---
+// In each game you played, what is the fewest number of cubes of each color that could have been in the bag
+// to make the game possible?
+
+// For each game:
+// 1.1 Sum power of minimal cube values for each cube color
+// For each round:
+// 2.1 Check if cube value for cube color is greater than last round - if yes replace with current cube
+
 const (
 	maxRed   = 12
 	maxGreen = 13
@@ -65,6 +74,55 @@ func GetSumFromIDsByPossibleGames(input string) (int, error) {
 		}
 	}
 	return sumIDs, nil
+}
+
+func SumPowerOfMinCubesNeededForGames(input string) (int, error) {
+	var sumPower int
+
+	games := tools.SplitInputByNewLine(input)
+	for _, game := range games {
+		gameWithoutIdentifier := removeGameIdentifier(game)
+		greatesCubeValues, err := getGreatestCubeValuesInGame(gameWithoutIdentifier)
+		if err != nil {
+			return -1, err
+		}
+
+		sumPower += getPowerOfGreatestCubeValuesInGame(greatesCubeValues)
+	}
+
+	return sumPower, nil
+}
+
+func getPowerOfGreatestCubeValuesInGame(greatesCubeValues map[string]int) int {
+	cubeValBlue := greatesCubeValues["blue"]
+	cubeValGreen := greatesCubeValues["green"]
+	cubeValRed := greatesCubeValues["red"]
+
+	return cubeValBlue * cubeValGreen * cubeValRed
+}
+
+func getGreatestCubeValuesInGame(gameWithoutIdentifier string) (map[string]int, error) {
+	greatesCubeValues := make(map[string]int)
+
+	rounds := getAllRounds(gameWithoutIdentifier)
+	for _, round := range rounds {
+		cubes := getAllCubes(round)
+		for _, cube := range cubes {
+			currentCubeWithoutWhiteSpace := strings.TrimSpace(cube)
+			currentCubeValue, getCubeErr := getCubeValue(currentCubeWithoutWhiteSpace)
+			if getCubeErr != nil {
+				return nil, getCubeErr
+			}
+			currentCubeColor := getCubeColor(currentCubeWithoutWhiteSpace)
+
+			prevCubeValue := greatesCubeValues[currentCubeColor]
+			if currentCubeValue > prevCubeValue {
+				greatesCubeValues[currentCubeColor] = currentCubeValue
+			}
+
+		}
+	}
+	return greatesCubeValues, nil
 }
 
 func removeGameIdentifier(game string) string {

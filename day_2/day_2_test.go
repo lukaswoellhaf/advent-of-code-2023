@@ -14,3 +14,10 @@ func TestDay2Part1(t *testing.T) {
 	assert.Equal(t, nil, getSumErr, "getSumErr should be nil")
 	assert.Equal(t, 8, possibleGameIDsSum, "possibleGameIDsSum should be 8")
 }
+
+func TestDay2Part2(t *testing.T) {
+	day2Part2Input, _ := tools.ReadFileAndTrimSpace("../inputs/day_2_part_2_example.txt")
+	sumPowerOfMinCubes, sumPowerErr := day2.SumPowerOfMinCubesNeededForGames(day2Part2Input)
+	assert.Equal(t, nil, sumPowerErr, "sumPowerErr should be nil")
+	assert.Equal(t, 2286, sumPowerOfMinCubes, "sumPowerOfMinCubes should be 2286")
+}

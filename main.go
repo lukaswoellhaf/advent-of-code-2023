@@ -33,4 +33,11 @@ func main() {
 		log.Fatal(getSumErr)
 	}
 	println("Result:", possibleGameIDsSum)
+	println("--- Day 2: Cube Conundrum Part 2 ---")
+	day2Part2Input, _ := tools.ReadFileAndTrimSpace("inputs/day_2_part_2_puzzle.txt")
+	sumPowerOfMinCubes, sumPowerErr := day2.SumPowerOfMinCubesNeededForGames(day2Part2Input)
+	if sumPowerErr != nil {
+		log.Fatal(sumPowerErr)
+	}
+	println("Result:", sumPowerOfMinCubes)
 }
