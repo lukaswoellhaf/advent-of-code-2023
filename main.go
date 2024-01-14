@@ -3,6 +3,7 @@ package main
 import (
 	day1 "advent-of-code-2023/day_1"
 	day2 "advent-of-code-2023/day_2"
+	day3 "advent-of-code-2023/day_3"
 	"advent-of-code-2023/tools"
 	"log"
 )
@@ -40,4 +41,13 @@ func main() {
 		log.Fatal(sumPowerErr)
 	}
 	println("Result:", sumPowerOfMinCubes)
+
+	println("--- Day 3: Gear Ratios Part 1 ---")
+	day3Part1Input, _ := tools.ReadFileAndTrimSpace("inputs/day_3_part_1_puzzle.txt")
+	sumOfPartNumbers, getSumPartNumbersErr := day3.SumPartNumbersInEngineSemanticsBoard(day3Part1Input)
+	if getSumPartNumbersErr != nil {
+		log.Fatal(getSumPartNumbersErr)
+	}
+	println("Result:", sumOfPartNumbers)
+
 }
