@@ -4,6 +4,7 @@ import (
 	day1 "advent-of-code-2023/day_1"
 	day2 "advent-of-code-2023/day_2"
 	day3 "advent-of-code-2023/day_3"
+	day4 "advent-of-code-2023/day_4"
 	"advent-of-code-2023/tools"
 	"log"
 )
@@ -50,4 +51,10 @@ func main() {
 	}
 	println("Result:", sumOfPartNumbers)
 
+	println("--- Day 4: Scratchcards Part 1---")
+	day4Part1Input, _ := tools.ReadFileAndTrimSpace("inputs/day_4_part_1_puzzle.txt")
+	totalPoints := day4.GetTotalPointsOfScratchCards(day4Part1Input)
+	println("Result:", totalPoints)
+
+	println("--- Day 4: Scratchcards Part 2---")
 }
